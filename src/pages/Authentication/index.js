@@ -15,7 +15,9 @@ const Authentication = props => {
   const [username, setUsername] = useState("");
   const [token, setToken] = useLocalStorage("token");
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
-  const [{ isLoading, error, response }, doFetch] = useFetch(apiUrl);
+  const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
+
+  console.log("token", token);
 
   const handleSubmit = event => {
     event.preventDefault();
