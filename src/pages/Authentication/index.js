@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import useFetch from "hooks/useFetch";
 
 const Authentication = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [{ isLoading, error, response }, doFetch] = useFetch("/users/login");
+  console.log("useFetch", isLoading, error, response);
 
   const handleSubmit = event => {
     event.preventDefault();
 
+    doFetch({
+      method: "post",
+      data: {
+        user: {
+          email: "qq@qq.com",
+          password: "123"
+        }
+      }
+    });
     console.log("values", email, password);
   };
 
@@ -41,6 +54,7 @@ const Authentication = () => {
                   />
                 </fieldset>
                 <button
+                  disabled={isLoading}
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
                 >
