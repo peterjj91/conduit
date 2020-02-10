@@ -7,6 +7,7 @@ import Pagination from "components/Pagination";
 import PopularTags from "components/PopularTags";
 import Loading from "components/Loading";
 import ErrorMessage from "components/ErrorMessage";
+import FeedToggler from "components/FeedToggler";
 import { getPaginator, limit } from "utils";
 
 const GlobalFeed = ({ location, match }) => {
@@ -32,6 +33,7 @@ const GlobalFeed = ({ location, match }) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
+            <FeedToggler />
             {isLoading && <Loading />}
             {error && <ErrorMessage />}
             {!isLoading && response && (
