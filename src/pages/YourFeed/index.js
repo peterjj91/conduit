@@ -1,31 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { stringify } from "query-string";
 
 import Feed from "components/Feed";
 import useFetch from "hooks/useFetch";
 import Pagination from "components/Pagination";
+import { getPaginator, limit } from "utils";
 import PopularTags from "components/PopularTags";
 import Loading from "components/Loading";
 import ErrorMessage from "components/ErrorMessage";
 import FeedToggler from "components/FeedToggler";
 import Banner from "components/Banner";
-import { getPaginator, limit } from "utils";
 
-const TagFeed = ({ location, match }) => {
-  const tagName = match.params.slug;
+const YourFeed = ({ location, match }) => {
   const { offset, currentPage } = getPaginator(location.search);
   const stringifiedParams = stringify({
     limit,
-    offset,
-    tag: tagName
+    offset
   });
-  const apiUrl = `/articles?${stringifiedParams}`;
+  const apiUrl = `/articles/feed?${stringifiedParams}`;
   const currentUrl = match.url;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
 
   useEffect(() => {
+    console.log(1);
     doFetch();
-  }, [currentPage, doFetch, tagName]);
+  }, [currentPage, doFetch]);
 
   return (
     <div className="home-page">
@@ -33,7 +32,7 @@ const TagFeed = ({ location, match }) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            <FeedToggler tagName={tagName} />
+            <FeedToggler />
             {isLoading && <Loading />}
             {error && <ErrorMessage />}
             {!isLoading && response && (
@@ -57,4 +56,4 @@ const TagFeed = ({ location, match }) => {
   );
 };
 
-export default TagFeed;
+export default YourFeed;
