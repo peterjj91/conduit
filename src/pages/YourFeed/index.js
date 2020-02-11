@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import { stringify } from "query-string";
 
 import Feed from "components/Feed";
@@ -22,7 +22,6 @@ const YourFeed = ({ location, match }) => {
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
 
   useEffect(() => {
-    console.log(1);
     doFetch();
   }, [currentPage, doFetch]);
 
